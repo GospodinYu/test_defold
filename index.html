@@ -1,40 +1,3 @@
-1. **Подготовка игры на дефолде**
-
-   Убедитесь, что ваша игра на Defold готова к экспорту. 
-   
-   - Откройте проект в редакторе Defold.
-   - Перейдите в `Project` > `Bundle` > `HTML5`.
-   - Экспортируйте проект как HTML5.
-     
-     В результате у вас будет папка с файлами: `index.html`, `game.js`, `game.wasm` и другие ресурсы.
-
-2. **Настройка хостинга для файлов**
-
-   Поскольку Telegram веб-приложения требуют доступа к публичному URL, вам нужно загрузить ваши файлы на хостинг.
-
-   **Бесплатные варианты хостинга**:
-   - GitHub Pages
-   - Netlify
-   - Vercel
-
-   **Пример с GitHub Pages**:
-   - Создайте репозиторий на GitHub и загрузите ваши HTML5-файлы.
-   - Активируйте Pages через `Settings` > `Pages` > `Deploy from branch`.
-   - Ваш сайт станет доступен по URL: `https://username.github.io/repository/`.
-
-3. **Создание бота в Telegram**
-
-   - Напишите [@BotFather](https://t.me/BotFather) в Telegram.
-   - Создайте нового бота с помощью команды `/newbot`.
-   - Сохраните полученный `TOKEN`.
-
-4. **Настройка веб-приложения в Telegram**
-
-   Telegram позволяет запустить веб-приложение через бота с функцией Web App. Для этого вам понадобится `index.html` с корректным хостингом.
-
-   Добавьте следующий код в ваш `index.html` для инициализации Web App:
-
-   ```html
    <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -107,29 +70,4 @@
        </script>
    </body>
    </html>
-   ```
-
-5. **Запуск Web App через Telegram-бота**
-
-   - Отправьте пользователю специальную кнопку, которая откроет Web App. Используйте следующий код с библиотекой [python-telegram-bot](https://python-telegram-bot.readthedocs.io):
-
-   ```python
-   from telegram import Update, WebAppInfo, KeyboardButton, ReplyKeyboardMarkup
-   from telegram.ext import ApplicationBuilder, CommandHandler
-
-   async def start(update: Update, context):
-       button = KeyboardButton("Запустить игру", web_app=WebAppInfo(url="https://username.github.io/repository/"))
-       markup = ReplyKeyboardMarkup([[button]], resize_keyboard=True)
-       await update.message.reply_text("Нажмите кнопку, чтобы запустить игру!", reply_markup=markup)
-
-   app = ApplicationBuilder().token("ВАШ_BOT_TOKEN").build()
-   app.add_handler(CommandHandler("start", start))
-   app.run_polling()
-   ```
-
-6. **Тестирование**
-
-   - Запустите бота с командой `/start`.
-   - Нажмите на кнопку "Запустить игру" и убедитесь, что игра запускается в Telegram Web App.
-
-Теперь ваша игра на Defold запускается как веб-приложение через Telegram-бота!
+   
